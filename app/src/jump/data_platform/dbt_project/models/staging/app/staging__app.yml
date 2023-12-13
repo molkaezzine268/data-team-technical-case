@@ -1,0 +1,17 @@
+version: 2
+
+sources:
+- name: app
+  schema: sources  
+  tables:
+  - name: users
+    identifier: app__users
+  
+  - name: job_contracts
+    identifier: app__job_contracts
+  
+  - name: clients
+    identifier: app__clients
+  
+  - name: invoices
+    identifier: app__invoices
