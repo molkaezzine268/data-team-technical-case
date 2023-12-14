@@ -40,14 +40,14 @@ RUN curl \
 
 ENV PATH="/usr/local/lib/data-platform/venv/bin:${PATH}"
 
-COPY ["./app/pyproject.toml", "./app/pdm.lock", "/tmp/data-platform/app/"]
-RUN cd "/tmp/data-platform/app" && \
+COPY ["./cli/pyproject.toml", "./cli/pdm.lock", "/tmp/data-platform/cli/"]
+RUN cd "/tmp/data-platform/cli" && \
     touch "README.md" && \
     pdm use -f "/usr/local/lib/data-platform/venv" && \
     pdm sync --no-editable --no-self --prod
 
-COPY ["./app/src", "/tmp/data-platform/app/src"]
-RUN cd "/tmp/data-platform/app" && \
+COPY ["./cli/src", "/tmp/data-platform/cli/src"]
+RUN cd "/tmp/data-platform/cli" && \
     pdm sync --no-editable --prod
 
 COPY ["./dbt", "/usr/local/lib/data-platform/dbt"]

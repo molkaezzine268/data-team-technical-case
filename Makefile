@@ -59,6 +59,7 @@ load:
 
 .PHONY: all
 all:
+	mkdir -p "./data"
 	docker run \
 		--rm \
 		--user "$(UID):$(GID)" \
@@ -68,6 +69,7 @@ all:
 
 .PHONY: debug
 debug: build
+	mkdir -p "./data"
 	docker run \
 		--interactive \
 		--tty \
