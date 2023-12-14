@@ -9,9 +9,6 @@ RUN mkdir -p \
         "/var/log/data-platform" && \
     python -m "venv" "/usr/local/lib/data-platform"
 
-
-ENV PATH="/usr/local/lib/data-platform/bin:${PATH}"
-
 # Builder image
 FROM base AS builder
 
@@ -41,6 +38,8 @@ RUN curl \
     python "-" --path "/usr/local/lib/pdm" && \
     ln --symbolic "/usr/local/lib/pdm/bin/pdm" "/usr/local/bin/pdm"
 
+ENV PATH="/usr/local/lib/data-platform/bin:${PATH}"
+
 COPY ["./app/pyproject.toml", "./app/pdm.lock", "/tmp/data-platform/app/"]
 RUN cd "/tmp/data-platform/app" && \
     touch "README.md" && \
@@ -66,6 +65,7 @@ RUN groupadd -g "${GID}" -o "data-platform" && \
 
 WORKDIR "/var/local/lib/data-platform"
 
+COPY ["./docker/data-platform", "/usr/local/bin/data-platform"]
 COPY --from=builder ["/usr/local/bin/duckdb", "/usr/local/bin/duckdb"]
 COPY --from=builder ["/usr/local/lib/data-platform", "/usr/local/lib/data-platform"]
 
