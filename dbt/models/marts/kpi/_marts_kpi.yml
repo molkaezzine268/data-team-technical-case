@@ -1,0 +1,14 @@
+version: 2
+
+
+models:
+- name: marts__kpi__monthly_turnover
+  columns:
+  - name: issue_month_date
+    tests:
+    - not_null
+    - unique
+
+  - name: amount
+    tests:
+    - not_null

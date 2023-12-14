@@ -1,3 +1,6 @@
 #!/usr/bin/env bash
 
-exec env PATH="/usr/local/lib/data-platform/bin:${PATH}" /usr/local/lib/data-platform/bin/data-platform "${@}"
+exec env \
+    PYTHONUNBUFFERED="1" \
+    PATH="/usr/local/lib/data-platform/venv/bin:${PATH}" \
+        /usr/local/lib/data-platform/venv/bin/data-platform "${@}"

@@ -23,7 +23,7 @@ requires = ["pdm-backend"]
 build-backend = "pdm.backend"
 
 [project.scripts]
-data-platform = "jump.data_platform.app:app"
+data-platform = "jump.data_platform.cli:app"
 
 [tool.pdm.build]
 package-dir = "src" 

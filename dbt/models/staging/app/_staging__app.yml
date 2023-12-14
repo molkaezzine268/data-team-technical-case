@@ -1,0 +1,109 @@
+version: 2
+
+
+sources:
+- name: app
+  schema: sources  
+  tables:
+  - name: users
+    identifier: app__users
+
+  - name: job_contracts
+    identifier: app__job_contracts
+
+  - name: clients
+    identifier: app__clients
+
+  - name: invoices
+    identifier: app__invoices
+
+
+models:
+- name: staging__app__clients
+  columns:
+  - name: id
+    tests:
+    - not_null
+    - unique
+
+  - name: name
+    tests:
+    - not_null
+
+- name: staging__app__invoices
+  columns:
+  - name: id
+    tests:
+    - not_null
+    - unique
+
+  - name: client_id
+    tests:
+    - not_null
+    - relationships:
+        to: "{{ ref('staging__app__clients') }}"
+        field: id
+
+  - name: job_contract_id
+    tests:
+    - not_null
+    - relationships:
+        to: "{{ ref('staging__app__job_contracts') }}"
+        field: id
+
+  - name: reference
+    tests:
+    - not_null
+
+  - name: amount
+    tests:
+    - not_null
+
+
+- name: staging__app__job_contracts
+  columns:
+  - name: id
+    tests:
+    - not_null
+    - unique
+
+  - name: entity
+    tests:
+    - not_null
+    - accepted_values:
+        values:
+        - blue
+        - green
+
+  - name: start_date
+    tests:
+    - not_null
+
+  - name: end_date
+
+
+- name: staging__app__users
+  tests:
+  - dbt_utils.unique_combination_of_columns:
+      combination_of_columns:
+      - last_name
+      - first_name
+      - email
+
+  columns:
+  - name: id
+    tests:
+    - not_null
+    - unique
+  
+  - name: last_name
+    tests:
+    - not_null
+
+  - name: first_name
+    tests:
+    - not_null
+
+  - name: email
+    tests:
+    - not_null
