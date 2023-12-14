@@ -12,10 +12,17 @@ RUN mkdir -p \
 # Builder image
 FROM base AS builder
 
+ARG DUCKDB_VERSION="0.9.2"
+
 RUN apt-get --yes update && \
     apt-get --yes install \
         "curl" \
-        "unzip"
+        "unzip" \
+        "git" \
+        "g++" \
+        "cmake" \
+        "libssl-dev" 
+
 
 ENV PATH="/usr/local/bin:${PATH}"
 
@@ -24,7 +31,7 @@ RUN curl \
         --show-error \
         --location \
         --output "/tmp/duckdb_cli.zip" \
-            "https://github.com/duckdb/duckdb/releases/download/v0.9.2/duckdb_cli-linux-amd64.zip" && \
+            "https://github.com/duckdb/duckdb/releases/download/v${DUCKDB_VERSION}/duckdb_cli-linux-amd64.zip" && \
     unzip \
         "/tmp/duckdb_cli.zip" \
         -d "/usr/local/bin" && \
