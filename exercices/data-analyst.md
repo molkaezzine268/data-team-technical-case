@@ -48,4 +48,4 @@ Tu dois créer un model qui permet d'avoir accès à cet indicateur.
 
 ### Tâche #03 - Analyse du chiffre d'affaire par cohort et par mois d'émission
 
-### Tâche #04 - Bug sur le 
+### Tâche #04 - Bug sur le chiffre d'affaire par mois
