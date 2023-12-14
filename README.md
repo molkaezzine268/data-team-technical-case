@@ -39,7 +39,7 @@ La Data Platform s'appuie sur les technologies suivantes :
     * Le fichier se trouve dans `./data/lakehouse/lakehouse.duckdb`, 
     * Chacune des couches logiques citées ci-dessus est un schéma ;
 * L'ensemble des transformations est réalisé **à l'aide de [DBT](https://www.getdbt.com/)** grâce à [ce projet](./dbt/) ;
-* Une [CLI](./cli) en Python (nommée `data-platform`) qui orchestre les différentes étapes d'alimentation de la Data Platform :
+* Une [CLI](./cli) en Python qui orchestre les différentes étapes d'alimentation de la Data Platform :
     * L'étape `extract` pour copier les données depuis les applications sous forme de base de données [SQLite](https://www.sqlite.org/index.html) dans le dossier `./data/sources`, 
     * L'étape `load` pour charger les données extraites dans le schéma `sources` du Lakehouse (qui va aller se trouver dans `./data/lakehouse`), 
     * L'étape `transform` pour alimenter les schémas `staging`, `intermediate` et `marts`.
