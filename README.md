@@ -2,7 +2,7 @@
 
 ## Présentation globale
 
-Ce dépôt contient l'ensemble du code qui permet à la Data Platform de Jump de fonctionner. Au sein de Jump, la Data Platform constitue l'ensemble des moyens techniques mis en oeuvre pour répondre aux différents besoins liés aux problématiques autour de la donnée (reportings, extraction ad-hoc, etc.) 
+Ce dépôt contient l'ensemble du code qui constitue la Data Platform. La Data Platform constitue **l'ensemble des moyens techniques mis en oeuvre pour répondre aux besoins autour de la donnée chez Jump** (reportings, extraction ad-hoc, etc.) 
 
 
 La clé de voute de la Data Platform est le Lakehouse : c'est une base de donnée orientée analytique qui est composée de 4 couches :
