@@ -12,8 +12,3 @@ Il faut réaliser un rapport avec la somme cumulée du chiffre d'affaire par moi
 | DUPOND | Albert | 2022/02/01 |  | blue | 2022/04 | 34,15 |
 | DUPOND | Albert | 2022/02/01 |  | blue | 2022/05 | 67,15 |
 | ... | ... | ... | ... | ... | ... | ... | ... |
-
-
-## Tips
-1) Le _Monthly Turnover_ est calculé dans [ce fichier](../../dbt/models/marts/kpi/marts__kpi__monthly_turnover.sql)
-2) Le package [dbt-utils](https://github.com/dbt-labs/dbt-utils) et sa fonction `date_spine` a été ajouté comme dépendence au projet 
