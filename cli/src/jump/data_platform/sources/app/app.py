@@ -60,15 +60,26 @@ class App:
         users = self.list_users()
         def iter_job_contracts() -> Generator[JobContract, None, None]:
             for user in users:
-                for i in range(self._faker.random_int(1, 10)):
-                    start_date = self._random_date()
-                    yield JobContract(
+                start_date = self._random_date()
+                last_job_contract = JobContract(
+                    user=user,
+                    id=self._faker.uuid4(),
+                    entity=self._faker.random_element(Entity),
+                    start_date=self._random_date(),
+                    end_date=self._random_date_between(start_date=start_date, end_date=start_date.add(months=6)) if self._faker.boolean() else None,
+                )
+                yield last_job_contract
+
+                if self._faker.random_int(1, 10) == 1:
+                    first_job_contract = JobContract(
                         user=user,
                         id=self._faker.uuid4(),
                         entity=self._faker.random_element(Entity),
                         start_date=self._random_date(),
-                        end_date=self._random_date_between(start_date=start_date, end_date=start_date.add(months=6)) if self._faker.boolean() else None,
+                        end_date=self._random_date_between(start_date=last_job_contract.start_date.subtract(months=6), end_date=last_job_contract.start_date.subtract(days=1)),
                     )
+                    yield first_job_contract
+                    
 
         return list(iter_job_contracts())
 

@@ -49,6 +49,18 @@ class DBT:
                 yaml.dump(profiles, stream)
 
             process = run(
+                ["dbt", "deps"], 
+                env=environ | {
+                    "DBT_PROJECT_DIR": f"{self._project_folder_path}",
+                    "DBT_PROFILES_DIR": f"{temp_folder_path}",
+                    "DBT_TARGET_PATH": f"{self._target_folder_path}",
+                    "DBT_LOG_PATH": f"{self._log_folder_path}",
+                }
+            )
+            if process.returncode != 0:
+                raise RuntimeError(f"DBT command failed with exit code {process.returncode}!")
+
+            process = run(
                 command, 
                 env=environ | {
                     "DBT_PROJECT_DIR": f"{self._project_folder_path}",
