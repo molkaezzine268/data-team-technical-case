@@ -13,7 +13,7 @@ DOCKER_REPOSITORY := jump/data-platform
 
 
 .PHONY: default
-default: clean build extract load transform 
+default: clean build refresh
 
 
 
@@ -64,6 +64,8 @@ transform: ## Intègre les données de la couche Sources dans les couches Stagin
 		"$(DOCKER_REPOSITORY)" \
 			transform
 
+.PHONY: refresh
+refresh: extract load transform ## Lance successivement l'extraction, le chargement et les transformations
 
 
 ##@ Divers

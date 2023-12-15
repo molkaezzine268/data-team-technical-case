@@ -56,7 +56,7 @@ La Data Platform s'appuie sur les technologies suivantes :
 
 Pour pouvoir lancer les commandes, tu auras besoin de Docker et de Make. 
 
-Pour construire l'image Docker qui contient la Data Platform et lancer une chaine d'alimentation complète, tu as juste à lancer la commande `make`.
+Pour construire l'image Docker qui contient la Data Platform et lancer une chaine d'alimentation complète, tu as juste à lancer la commande `make`. 
 
 > 💥 La commande `make` seule doit fonctionner sans aucune erreur... Si tu rencontre la moindre erreur, contacte-nous : cela ne devrait pas arriver !
 

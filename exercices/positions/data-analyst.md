@@ -2,14 +2,14 @@
 
 ## Objectif
 
-Tu trouveras ici la liste des tickets à réaliser dans le cadre du test technique qui fait parti du processus de recrutement chez Jump. 
+Tu trouveras ici la liste des tickets à réaliser. 
 
-Tu peux répondre comme cela te convient le mieux : 
-* Tu peux forker le dépôt et faire une PR ;
-* Envoyer un fichier ZIP avec les modifications que tu veux apporter ;
-* ...Ou autre ! 
+> 💡 Les exercices nécessitent de relancer l'étape de transformation. Il suffira pour cela de lancer `make transform` une fois le projet DBT à jour.
 
-Bon courage !
+Tu peux soumettre tes réponses comme cela te convient le mieux : 
+* En forkant le dépôt et faire une PR ;
+* En envoyant un fichier ZIP avec les modifications que tu veux apporter ;
+* ...Ou autre !
 
 
 ## Tâches

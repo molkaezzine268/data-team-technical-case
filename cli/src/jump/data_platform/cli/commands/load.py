@@ -59,7 +59,7 @@ def load(context: Context, source_folder_path: Path | None, lakehouse_folder_pat
                                 FROM 
                                     read_csv_auto('{csv_file_path}', header = true)
                         """).format(table_name=table_name, csv_file_path=source_folder_path / f"{table_name}.csv"))
-                        spinner.stop_and_persist(symbol="✅".encode('utf-8'), text=f"Successfully loaded CRM table {table_name} to the Lakehouse! ")
+                        spinner.stop_and_persist(symbol="✅".encode('utf-8'), text=f"Successfully loaded App table {table_name} to the Lakehouse! ")
                 
                 case _:
                     raise Exception(f"Unknown source! ")
