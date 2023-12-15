@@ -1,0 +1,82 @@
+version: 2
+
+
+models:
+- name: intermediate__freelances
+  columns:
+  - name: sk
+    tests:
+    - not_null
+    - unique
+
+  - name: last_name
+    tests:
+    - not_null
+
+  - name: first_name
+    tests:
+    - not_null
+
+  - name: email
+    tests:
+    - not_null
+
+  - name: satisfaction_score
+
+- name: intermediate__job_contracts
+  columns:
+  - name: sk
+    tests:
+    - not_null
+    - unique
+
+  - name: start_date
+    tests:
+    - not_null
+
+  - name: end_date
+
+  - name: entity
+    tests:
+    - not_null
+
+- name: intermediate__invoices
+  columns:
+  - name: sk
+    tests:
+    - not_null
+    - unique
+
+  - name: job_contract_sk
+    tests:
+    - not_null
+    - relationships:
+        to: "{{ ref('intermediate__job_contracts') }}"
+        field: sk
+
+  - name: client_sk
+    tests:
+    - not_null
+    - relationships:
+        to: "{{ ref('intermediate__clients') }}"
+        field: sk
+
+  - name: reference
+    tests:
+    - not_null
+
+  - name: amount
+    tests:
+    - not_null
+
+
+- name: intermediate__clients
+  columns:
+  - name: sk
+    tests:
+    - not_null
+    - unique
+
+  - name: name
+    tests:
+    - not_null
