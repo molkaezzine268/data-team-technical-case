@@ -29,11 +29,6 @@ def load(context: Context, source_folder_path: Path | None, lakehouse_folder_pat
     with DuckDB(lakehouse_folder_path / "lakehouse.duckdb") as duckdb:
         duckdb.create_schema("sources")
         for source in sources:
-            duckdb.attach(
-                source_folder_path / f"{source}.sqlite", 
-                f"source__{source}",
-            )
-
             match source:
                 case Source.CRM:
                     for table_name in ["customers"]:
@@ -44,8 +39,8 @@ def load(context: Context, source_folder_path: Path | None, lakehouse_folder_pat
                                 SELECT 
                                     * 
                                 FROM 
-                                    source__crm.{table_name}
-                        """).format(table_name=table_name))
+                                    read_csv_auto('{csv_file_path}', header = true)
+                        """).format(table_name=table_name, csv_file_path=source_folder_path / f"{table_name}.csv"))
                 
                 case Source.APP:
                     for table_name in ["users", "clients", "job_contracts", "invoices"]:
@@ -56,8 +51,8 @@ def load(context: Context, source_folder_path: Path | None, lakehouse_folder_pat
                                 SELECT 
                                     * 
                                 FROM 
-                                    source__app.{table_name}
-                        """).format(table_name=table_name))
+                                    read_csv_auto('{csv_file_path}', header = true)
+                        """).format(table_name=table_name, csv_file_path=source_folder_path / f"{table_name}.csv"))
                 
                 case _:
                     raise Exception(f"Unknown source! ")

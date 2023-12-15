@@ -10,25 +10,11 @@ class DuckDB:
 
     def __enter__(self):
         self._connection = duckdb.connect(database=f"{self._file_path}")
-        self._connection.execute("INSTALL 'sqlite'")
         return self
     
     def __exit__(self, *args, **kwargs):
         self._connection.close()
         self._connection = None
-    
-    def attach(self, sqlite_file_path: Path, schema: str) -> None:
-        if ( connection := self._connection ):
-            print("WUT?")
-            connection.execute(
-                dedent("""\
-                    ATTACH 
-                        '{sqlite_file_path}' 
-                    AS 
-                        {schema} (TYPE sqlite)
-                """).format(sqlite_file_path=sqlite_file_path, schema=schema)
-            )
-            print("WUTWUT?")
 
     def create_schema(self, schema: str) -> None:
         if ( connection := self._connection ):
