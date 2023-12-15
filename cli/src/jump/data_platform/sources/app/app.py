@@ -60,7 +60,7 @@ class App:
         users = self.list_users()
         def iter_job_contracts() -> Generator[JobContract, None, None]:
             for user in users:
-                for i in range(self._faker.random_int(1, 2)):
+                for i in range(self._faker.random_int(1, 10)):
                     start_date = self._random_date()
                     yield JobContract(
                         user=user,

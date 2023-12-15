@@ -17,7 +17,6 @@ build:
 	docker build \
 		--build-arg "UID=$(UID)" \
 		--build-arg "GID=$(GID)" \
-		--progress="plain" \
 		--file "./docker/Dockerfile" \
 		--tag "$(DOCKER_REPOSITORY)" \
 			"."
