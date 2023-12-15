@@ -71,6 +71,6 @@ La conteneurisation est faite à l'aide de Docker et de [ce Dockerfile](./docker
 * `make build` : construit l'image Docker qui embarque la CLI, le projet DBT, etc.
 * `make extract` : lance l'extract des données de l'application et du CRM
 * `make load` : lance l'inégration des extractions dans le schéma `source` du Lakehouse
-* `make transform` : transforme les données et alimente les schémas `staging`, `intermediate` et `bronze` (à l'aide du [projet DBT](./dbt/))
+* `make transform` : transforme les données et alimente les schémas `staging`, `intermediate` et `marts` (à l'aide du [projet DBT](./dbt/))
 
 > ❓ Tout est clair ? Si oui, retrouve [ici](./exercices/positions/data-analyst.md) les exercices à réaliser ! 
