@@ -7,7 +7,6 @@ from csv import DictWriter
 
 from ...sources.app import App
 from ...sources.crm import CRM
-from ...tools import SQLite
 
 from .source import Source
 
