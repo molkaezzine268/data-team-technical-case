@@ -48,7 +48,7 @@ def load(context: Context, source_folder_path: Path | None, lakehouse_folder_pat
                 
                 case Source.APP:
                     for table_name in ["users", "clients", "job_contracts", "invoices"]:
-                        spinner = Halo(text=f"Loading CRM table {table_name} to the Lakehouse... ", spinner="dots")
+                        spinner = Halo(text=f"Loading App table {table_name} to the Lakehouse... ", spinner="dots")
                         spinner.start()
                         duckdb.execute(dedent("""\
                             CREATE TABLE IF NOT EXISTS 

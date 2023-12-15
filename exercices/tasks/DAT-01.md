@@ -10,6 +10,6 @@ Il faut créer un test de manière à s'assurer qu'il n'y a pas de trou au nivea
 
 ## Tips
 1) Tu peux t'appuyer sur la colonne `reference` du modèle [`intermediate__invoices`](../../dbt/models/intermediate/intermediate__invoices.sql) pour récupérer la liste des références
-2) Tu peux écrire ton test dans [ce fichier](../../dbt/tests/intermediate/intermediate__invoice_references_should_be_sequential.sql)
+2) Tu peux écrire ton test dans [ce fichier](../../dbt/tests/intermediate/invoices/intermediate__invoices__references_should_be_sequential.sql)
 
 
