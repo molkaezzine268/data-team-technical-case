@@ -11,8 +11,15 @@ GID := $(shell id -g)
 DOCKER_REPOSITORY := jump/data-platform
 
 
+##@ General
+.PHONY: help
+help: ## Display this help.
+	@awk 'BEGIN {FS = ":.*##"; printf "\nUsage:\n  make \033[36m<target>\033[0m\n"} /^[a-zA-Z_0-9-]+:.*?##/ { printf "  \033[36m%-15s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
+
+
+##@ Build the test
 .PHONY: build
-build:
+build: ## construit l'image Docker qui embarque la CLI, le projet DBT, etc.
 	mkdir -p "./data"
 	docker build \
 		--build-arg "UID=$(UID)" \
@@ -22,8 +29,9 @@ build:
 			"."
 
 
+##@ Data
 .PHONY: extract
-extract:
+extract: ## lance l'extract des données de l'application et du CRM
 	mkdir -p "./data"
 	docker run \
 		--rm \
@@ -34,7 +42,7 @@ extract:
 
 
 .PHONY: transform
-transform:
+transform: ## transforme les données et alimente les schémas "staging", "intermediate" et "bronze"
 	mkdir -p "./data"
 	docker run \
 		--rm \
@@ -46,7 +54,7 @@ transform:
 
 
 .PHONY: load
-load:
+load: # lance l'inégration des extractions dans le schéma "source" du Lakehouse
 	mkdir -p "./data"
 	docker run \
 		--rm \
@@ -56,6 +64,7 @@ load:
 			load
 
 
+##@ Internal
 .PHONY: all
 all:
 	mkdir -p "./data"
@@ -67,7 +76,7 @@ all:
 
 
 .PHONY: debug
-debug: build
+debug: build ## Lance une console interactive dans le docker de test
 	mkdir -p "./data"
 	docker run \
 		--interactive \
@@ -78,5 +87,5 @@ debug: build
 
 
 .PHONY: clean
-clean:
+clean: ## Clean the project
 	rm -rf "./data"
