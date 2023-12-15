@@ -11,15 +11,15 @@ GID := $(shell id -g)
 DOCKER_REPOSITORY := jump/data-platform
 
 
-##@ General
-.PHONY: help
-help: ## Display this help.
-	@awk 'BEGIN {FS = ":.*##"; printf "\nUsage:\n  make \033[36m<target>\033[0m\n"} /^[a-zA-Z_0-9-]+:.*?##/ { printf "  \033[36m%-15s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
+
+.PHONY: default
+default: clean build extract load transform 
 
 
-##@ Build the test
+
+##@ Build
 .PHONY: build
-build: ## construit l'image Docker qui embarque la CLI, le projet DBT, etc.
+build: ## Construit l'image Docker qui embarque la CLI, le projet DBT, etc.
 	mkdir -p "./data"
 	docker build \
 		--build-arg "UID=$(UID)" \
@@ -29,9 +29,10 @@ build: ## construit l'image Docker qui embarque la CLI, le projet DBT, etc.
 			"."
 
 
-##@ Data
+
+##@ Run
 .PHONY: extract
-extract: ## lance l'extract des données de l'application et du CRM
+extract: ## Lance l'extraction des données de l'App et du CRM sous forme de fichiers CSV
 	mkdir -p "./data"
 	docker run \
 		--rm \
@@ -41,8 +42,19 @@ extract: ## lance l'extract des données de l'application et du CRM
 			extract
 
 
+.PHONY: load
+load: # Charge les fichiers CSV extraits dans la couche Sources du Lakehouse
+	mkdir -p "./data"
+	docker run \
+		--rm \
+		--user "$(UID):$(GID)" \
+		--volume "$(PWD)/data:/var/local/lib/data-platform" \
+		"$(DOCKER_REPOSITORY)" \
+			load
+
+
 .PHONY: transform
-transform: ## transforme les données et alimente les schémas "staging", "intermediate" et "bronze"
+transform: ## Intègre les données de la couche Sources dans les couches Staging, Intermediate et Marts 
 	mkdir -p "./data"
 	docker run \
 		--rm \
@@ -53,30 +65,15 @@ transform: ## transforme les données et alimente les schémas "staging", "inter
 			transform
 
 
-.PHONY: load
-load: # lance l'inégration des extractions dans le schéma "source" du Lakehouse
-	mkdir -p "./data"
-	docker run \
-		--rm \
-		--user "$(UID):$(GID)" \
-		--volume "$(PWD)/data:/var/local/lib/data-platform" \
-		"$(DOCKER_REPOSITORY)" \
-			load
 
-
-##@ Internal
-.PHONY: all
-all:
-	mkdir -p "./data"
-	docker run \
-		--rm \
-		--user "$(UID):$(GID)" \
-		--volume "$(PWD)/data:/var/local/lib/data-platform" \
-		"$(DOCKER_REPOSITORY)"
+##@ Divers
+.PHONY: help
+help: ## Affiche l'aide
+	@awk 'BEGIN {FS = ":.*##"; printf "\nUsage:\n  make \033[36m<target>\033[0m\n"} /^[a-zA-Z_0-9-]+:.*?##/ { printf "  \033[36m%-15s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
 
 
 .PHONY: debug
-debug: build ## Lance une console interactive dans le docker de test
+debug: ## Lance un shell pour debuger l'image Docker
 	mkdir -p "./data"
 	docker run \
 		--interactive \
@@ -87,5 +84,5 @@ debug: build ## Lance une console interactive dans le docker de test
 
 
 .PHONY: clean
-clean: ## Clean the project
+clean: ## Supprime le dossier ./data (dans lequel sont générés les différents fichiers)
 	rm -rf "./data"
