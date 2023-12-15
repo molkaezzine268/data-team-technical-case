@@ -41,7 +41,7 @@ class App:
                     # We need a month with no invoices
                     today_date = today().date()
                     issue_date = self._random_date_between(job_contract.start_date, today_date)
-                    if issue_date.start_of("month") == today_date.subtract(months=2).start_of("month"):
+                    if issue_date.start_of("month") == Date(2032, 10, 1):
                         continue
 
                     yield Invoice(
