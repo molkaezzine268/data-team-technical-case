@@ -1,6 +1,7 @@
 from click import command, option, pass_context, Context, Choice
 from subprocess import run
 from pathlib import Path
+from halo import Halo
 
 from ...tools import DBT, DuckDB
 
@@ -54,10 +55,17 @@ def transform(
     dbt_log_folder_path = dbt_log_folder_path or context.obj.log_folder_path / "dbt"
     dbt_log_folder_path.mkdir(parents=True, exist_ok=True)
 
-    dbt = DBT(
-        project_folder_path=dbt_project_folder_path, 
-        duckdb_file_path=duckdb_file_path,
-        log_folder_path=dbt_log_folder_path,
-        target_folder_path=lakehouse_folder_path,
-    )
-    dbt.build(select=[layer.value for layer in layers])
+    spinner = Halo(text=f"Transforming layers using DBT... ", spinner="dots")
+    spinner.start()
+    try:
+        dbt = DBT(
+            project_folder_path=dbt_project_folder_path, 
+            duckdb_file_path=duckdb_file_path,
+            log_folder_path=dbt_log_folder_path,
+            target_folder_path=lakehouse_folder_path,
+        )
+        dbt.build(select=[layer.value for layer in layers])
+        spinner.stop_and_persist(symbol="✅".encode('utf-8'), text=f"Successfully transformed layers using DBT! ")
+    except Exception as exception:
+        spinner.stop_and_persist(symbol="❌".encode('utf-8'), text=f"Unable to transform layers using DBT! ")
+        raise exception

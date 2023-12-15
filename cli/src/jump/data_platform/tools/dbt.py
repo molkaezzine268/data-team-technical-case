@@ -48,7 +48,7 @@ class DBT:
             with ( temp_folder_path / "profiles.yml" ).open("w") as stream:
                 yaml.dump(profiles, stream)
 
-            run(
+            process = run(
                 command, 
                 env=environ | {
                     "DBT_PROJECT_DIR": f"{self._project_folder_path}",
@@ -57,5 +57,8 @@ class DBT:
                     "DBT_LOG_PATH": f"{self._log_folder_path}",
                 }
             )
+
+            if process.returncode != 0:
+                raise RuntimeError(f"DBT command failed with exit code {process.returncode}!")
 
     

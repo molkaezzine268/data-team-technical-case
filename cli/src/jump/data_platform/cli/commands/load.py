@@ -1,6 +1,7 @@
 from click import command, option, Choice, Context, pass_context
 from pathlib import Path
 from textwrap import dedent
+from halo import Halo
 
 from ...tools import DuckDB
 
@@ -32,6 +33,8 @@ def load(context: Context, source_folder_path: Path | None, lakehouse_folder_pat
             match source:
                 case Source.CRM:
                     for table_name in ["customers"]:
+                        spinner = Halo(text=f"Loading CRM table {table_name} to the Lakehouse... ", spinner="dots")
+                        spinner.start()
                         duckdb.execute(dedent("""\
                             CREATE TABLE IF NOT EXISTS 
                                 sources.crm__{table_name} 
@@ -41,9 +44,12 @@ def load(context: Context, source_folder_path: Path | None, lakehouse_folder_pat
                                 FROM 
                                     read_csv_auto('{csv_file_path}', header = true)
                         """).format(table_name=table_name, csv_file_path=source_folder_path / f"{table_name}.csv"))
+                        spinner.stop_and_persist(symbol="✅".encode('utf-8'), text=f"Successfully loaded CRM table {table_name} to the Lakehouse! ")
                 
                 case Source.APP:
                     for table_name in ["users", "clients", "job_contracts", "invoices"]:
+                        spinner = Halo(text=f"Loading CRM table {table_name} to the Lakehouse... ", spinner="dots")
+                        spinner.start()
                         duckdb.execute(dedent("""\
                             CREATE TABLE IF NOT EXISTS 
                                 sources.app__{table_name} 
@@ -53,6 +59,7 @@ def load(context: Context, source_folder_path: Path | None, lakehouse_folder_pat
                                 FROM 
                                     read_csv_auto('{csv_file_path}', header = true)
                         """).format(table_name=table_name, csv_file_path=source_folder_path / f"{table_name}.csv"))
+                        spinner.stop_and_persist(symbol="✅".encode('utf-8'), text=f"Successfully loaded CRM table {table_name} to the Lakehouse! ")
                 
                 case _:
                     raise Exception(f"Unknown source! ")

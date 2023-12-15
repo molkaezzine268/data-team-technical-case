@@ -2,7 +2,7 @@
 
 > 👋 Bienvenue à toi ! Tu vas trouver ici tout le contexte dont tu as besoin pour réaliser le test technique qui fait parti du processus de recrutement chez Jump. 
 
-## Présentation globale
+## Présentation
 
 ### La Data Platform
 Ce dépôt contient l'ensemble du code qui constitue la Data Platform. La Data Platform constitue **l'ensemble des moyens techniques mis en oeuvre pour répondre aux besoins qui nécessitent l'exploitation de la donnée chez Jump** (rapports et dashboards, extractions ad-hoc, etc.) 
@@ -32,7 +32,9 @@ Le business de Jump est assez simple :
 ![Modèle de données](docs/data-model.png)
 
 
-## Implémentation technique
+## Détails technique
+
+### Composants
 
 La Data Platform s'appuie sur les technologies suivantes : 
 * Le Lakehouse est **une base de données [DuckDB](https://duckdb.org/)** :
@@ -49,7 +51,7 @@ La Data Platform s'appuie sur les technologies suivantes :
 L'ensemble est conteneurisé à l'aide de Docker et de [ce Dockerfile](./docker/Dockerfile).
 
 
-## Utilisation
+### Utilisation
 
 Pour pouvoir lancer les commandes, tu auras besoin de Docker et de Make. Les targets suivantes sont disponibles :
 * `make build` : construit l'image Docker qui embarque la CLI, le projet DBT, etc.
@@ -58,4 +60,4 @@ Pour pouvoir lancer les commandes, tu auras besoin de Docker et de Make. Les tar
 * `make transform` : transforme les données et alimente les schémas `staging`, `intermediate` et `bronze` (à l'aide du [projet DBT](./dbt/))
 
 
-> ❓ Tout est clair ? Si oui, retrouve [ici](./exercices/data-analyst.md) les exercices à réaliser ! 
+> ❓ Tout est clair ? Si oui, retrouve [ici](./exercices/positions/data-analyst.md) les exercices à réaliser ! 
