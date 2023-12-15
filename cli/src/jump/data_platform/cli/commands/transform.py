@@ -62,7 +62,7 @@ def transform(
             project_folder_path=dbt_project_folder_path, 
             duckdb_file_path=duckdb_file_path,
             log_folder_path=dbt_log_folder_path,
-            target_folder_path=lakehouse_folder_path,
+            target_folder_path=dbt_target_folder_path,
         )
         dbt.build(select=[layer.value for layer in layers])
         spinner.stop_and_persist(symbol="✅".encode('utf-8'), text=f"Successfully transformed layers using DBT! ")

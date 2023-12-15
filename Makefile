@@ -13,8 +13,11 @@ DOCKER_REPOSITORY := jump/data-platform
 
 
 .PHONY: default
-default: clean build refresh
+default: all
 
+
+.PHONY: all
+all: clean build refresh
 
 
 ##@ Build
