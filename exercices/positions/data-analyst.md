@@ -4,7 +4,7 @@
 
 Tu trouveras ici la liste des tickets à réaliser. 
 
-> 💡 Les exercices nécessitent de relancer l'étape de transformation. Il suffira pour cela de lancer `make transform` une fois le projet DBT à jour.
+> 💡 Les exercices nécessitent de relancer l'étape de transformation. Il suffira pour cela de lancer `make transform` une fois le projet DBT modifié.
 
 Tu peux soumettre tes réponses comme cela te convient le mieux : 
 * En forkant le dépôt et faire une PR ;
