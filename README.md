@@ -1,4 +1,4 @@
-# Interviews pour la Data Team
+# Data Team / Exercice technique
 
 > 👋 Bienvenue à toi ! Tu vas trouver ici tout le contexte dont tu as besoin pour réaliser le test technique qui fait parti du processus de recrutement chez Jump. 
 
@@ -26,8 +26,8 @@ Le business de Jump est assez simple :
     * Une date de début,
     * Une date de fin,
     * Une entité (qui peut être `blue` si le freelance souscri à Jump Blue ou `green` s'il souscrit à Jump Green) ;
-* Un freelance peut avoir plusieurs CDI (à condition que les dates entre deux CDI ne se chevauchent pas)
-* Dans le cadre de son CDI, un freelance peut facturer un client
+* Un freelance peut avoir plusieurs CDI (à condition que les dates entre deux CDI ne se chevauchent pas) ;
+* Dans le cadre de son CDI, un freelance peut facturer un client.
 
 ![Modèle de données](docs/data-model.png)
 
