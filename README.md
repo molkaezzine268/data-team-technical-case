@@ -48,16 +48,29 @@ La Data Platform s'appuie sur les technologies suivantes :
 
 > ⚠️ Naturellement, dans le cadre du test technique, on extrait les données d'aucune application. Elles sont en réalité générées aléatoirement par la CLI ([ici](./cli/src/jump/data_platform/sources/app/app.py) et [là](./cli/src/jump/data_platform/sources/crm/crm.py)).
 
-L'ensemble est conteneurisé à l'aide de Docker et de [ce Dockerfile](./docker/Dockerfile).
 
 
 ### Utilisation
 
-Pour pouvoir lancer les commandes, tu auras besoin de Docker et de Make. Les targets suivantes sont disponibles :
+### TL;DR...
+
+Pour pouvoir lancer les commandes, tu auras besoin de Docker et de Make. 
+
+Pour construire l'image Docker qui contient la Data Platform et lancer une chaine d'alimentation complète, tu as juste à lancer la commande `make`.
+
+> 💥 La commande `make` seule doit fonctionner sans aucune erreur... Si tu rencontre la moindre erreur, contacte-nous : cela ne devrait pas arriver !
+
+Si tu veux plus de détails sur les targets disponibles, tu peux lancer `make help`.
+
+
+### Et en plus long ? 
+
+La conteneurisation est faite à l'aide de Docker et de [ce Dockerfile](./docker/Dockerfile) et toutes les commandes pour builder sont embarquées dans [ce Makefile](./Makefile).
+
+ Les targets suivantes sont disponibles :
 * `make build` : construit l'image Docker qui embarque la CLI, le projet DBT, etc.
 * `make extract` : lance l'extract des données de l'application et du CRM
 * `make load` : lance l'inégration des extractions dans le schéma `source` du Lakehouse
 * `make transform` : transforme les données et alimente les schémas `staging`, `intermediate` et `bronze` (à l'aide du [projet DBT](./dbt/))
-
 
 > ❓ Tout est clair ? Si oui, retrouve [ici](./exercices/positions/data-analyst.md) les exercices à réaliser ! 
