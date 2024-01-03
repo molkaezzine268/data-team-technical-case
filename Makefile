@@ -34,6 +34,10 @@ build: ## Construit l'image Docker qui embarque la CLI, le projet DBT, etc.
 
 
 ##@ Run
+.PHONY: refresh
+refresh: extract load transform ## Lance successivement l'extraction, le chargement et les transformations
+
+
 .PHONY: extract
 extract: ## Lance l'extraction des données de l'App et du CRM sous forme de fichiers CSV
 	mkdir -p "./data"
@@ -68,10 +72,6 @@ transform: ## Intègre les données de la couche Sources dans les couches Stagin
 		--volume "$(PWD)/dbt:/usr/local/lib/data-platform/dbt" \
 		"$(DOCKER_REPOSITORY)" \
 			transform
-
-
-.PHONY: refresh
-refresh: extract load transform ## Lance successivement l'extraction, le chargement et les transformations
 
 
 .PHONY: query

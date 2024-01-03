@@ -75,3 +75,5 @@ La conteneurisation est faite à l'aide de Docker et de [ce Dockerfile](./docker
 * `make query` : lance le REPL de DuckDB pour requêter le lakehouse
 
 > ❓ Tout est clair ? Si oui, retrouve [ici](./exercices/positions/data-analyst.md) les exercices à réaliser ! 
+>
+> N'hésite pas à explorer les données en parcourant le [projet DBT](./dbt/) et en requêtant les tables avec `make query`.
