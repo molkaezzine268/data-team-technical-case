@@ -41,6 +41,7 @@ extract: ## Lance l'extraction des données de l'App et du CRM sous forme de fic
 		--rm \
 		--user "$(UID):$(GID)" \
 		--volume "$(PWD)/data:/var/local/lib/data-platform" \
+		--volume "$(PWD)/dbt:/usr/local/lib/data-platform/dbt" \
 		"$(DOCKER_REPOSITORY)" \
 			extract
 
@@ -52,6 +53,7 @@ load: # Charge les fichiers CSV extraits dans la couche Sources du Lakehouse
 		--rm \
 		--user "$(UID):$(GID)" \
 		--volume "$(PWD)/data:/var/local/lib/data-platform" \
+		--volume "$(PWD)/dbt:/usr/local/lib/data-platform/dbt" \
 		"$(DOCKER_REPOSITORY)" \
 			load
 
@@ -67,8 +69,26 @@ transform: ## Intègre les données de la couche Sources dans les couches Stagin
 		"$(DOCKER_REPOSITORY)" \
 			transform
 
+
 .PHONY: refresh
 refresh: extract load transform ## Lance successivement l'extraction, le chargement et les transformations
+
+
+.PHONY: query
+query: ## Lance un REPL pour requêter le lakehouse (via DuckDB)
+	mkdir -p "./data"
+	docker run \
+		--rm \
+		--tty \
+		--interactive \
+		--user "$(UID):$(GID)" \
+		--volume "$(PWD)/data:/var/local/lib/data-platform" \
+		--volume "$(PWD)/dbt:/usr/local/lib/data-platform/dbt" \
+		--entrypoint "/usr/local/bin/duckdb" \
+		"$(DOCKER_REPOSITORY)" \
+			"/var/local/lib/data-platform/lakehouse/lakehouse.duckdb" \
+				-cmd 'USE intermediate; SHOW TABLES;'
+
 
 
 ##@ Divers
@@ -85,6 +105,8 @@ debug: ## Lance un shell pour debuger l'image Docker
 		--tty \
 		--rm \
 		--entrypoint "/bin/bash" \
+		--volume "$(PWD)/data:/var/local/lib/data-platform" \
+		--volume "$(PWD)/dbt:/usr/local/lib/data-platform/dbt" \
 		"$(DOCKER_REPOSITORY)"
 
 
