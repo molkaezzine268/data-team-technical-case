@@ -25,7 +25,7 @@ Le business de Jump est assez simple :
 * Un CDI chez Jump est materialisé par :
     * Une date de début,
     * Une date de fin,
-    * Une entité (qui peut être `blue` si le freelance souscri à Jump Blue ou `green` s'il souscrit à Jump Green) ;
+    * Une entité (qui peut être `blue` si le freelance souscrit à Jump Blue ou `green` s'il souscrit à Jump Green) ;
 * Un freelance peut avoir plusieurs CDI (à condition que les dates entre deux CDI ne se chevauchent pas) ;
 * Dans le cadre de son CDI, un freelance peut facturer un client.
 
