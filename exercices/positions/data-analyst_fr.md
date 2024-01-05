@@ -14,8 +14,8 @@ Tu peux soumettre tes réponses comme cela te convient le mieux :
 
 ## Tâches
 
-* [**DAT-01**](../tasks/DAT-01.md) / Vérifier la séquentialité des factures
-* [**DAT-02**](../tasks/DAT-02.md) / Calculer le NPS
-* [**DAT-03**](../tasks/DAT-03.md) / Extraire le chiffre d'affaire par mois et par cohortes
-* [**DAT-04**](../tasks/DAT-04.md) / ⚠️ Il manque le mois d'octobre 2023 sur le chiffre d'affaire
-* [**DAT-05**](../tasks/DAT-05.md) / Suivre l'évolution du chiffre d'affaire de chacun des freelances
+* [**DAT-01**](../tasks/DAT-01_fr.md) / Vérifier la séquentialité des factures
+* [**DAT-02**](../tasks/DAT-02_fr.md) / Calculer le NPS
+* [**DAT-03**](../tasks/DAT-03_fr.md) / Extraire le chiffre d'affaire par mois et par cohortes
+* [**DAT-04**](../tasks/DAT-04_fr.md) / ⚠️ Il manque le mois d'octobre 2023 sur le chiffre d'affaire
+* [**DAT-05**](../tasks/DAT-05_fr.md) / Suivre l'évolution du chiffre d'affaire de chacun des freelances
